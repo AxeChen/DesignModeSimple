@@ -26,22 +26,7 @@ public class MyBuilder extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 最简单的构造
-        CarBuilder carBuilder = new CarBuilder();
-        CarDirector director = new CarDirector(carBuilder);
-        Car car = director.creatCar();
-        Log.i(TAG, "车的牌子：" + car.getMake() + "车的类型：" + car.getType() + "车的座位：" + car.getSeat());
 
-        // 仿照Imageloader构造者模式
-        ImageLoaderConfig config = new ImageLoaderConfig.Builder()
-                // 设置磁盘图片缓存
-                .discCache(new MyDisCache())
-                // 设置内存图片缓存
-                .memoryCache(new MyMemoryCache())
-                .create();
-        ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.init(config);
-        Log.i(TAG, imageLoader.toString());
 
     }
 }
