@@ -1,10 +1,20 @@
 package com.mg.axe.designmodesimple;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
+import com.example.factory.abstractFactory.ReflectFactory;
+import com.example.factory.abstractProduct.Hero;
+import com.example.factory.factory.AichFactory;
+import com.example.factory.factory.GalenFactory;
+import com.example.factory.factory.VagabondageFactory;
+import com.example.factory.product.Aich;
+import com.example.factory.product.Galen;
+import com.example.factory.product.Vagabondage;
 import com.mg.axe.builder.MyBuilder;
 import com.mg.axe.builder.carBuilder.Car;
 import com.mg.axe.builder.carBuilder.CarBuilder;
@@ -36,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         /**-------原型模式-------**/
         prototype();
+
+        /**-------工厂模式-------**/
+        factory();
+
     }
 
     private void singleton() {
@@ -99,5 +113,36 @@ public class MainActivity extends AppCompatActivity {
         Log.i("prototype", "-----------------2、克隆后原始对象和克隆对象（已经修改）做对比------------");
         Log.i("prototype", "原始对象(克隆后)" + articleBean.toString());
         Log.i("prototype", "克隆对象(克隆后并修改)" + cloneArthurBean.toString());
+    }
+
+    private void factory() {
+        AichFactory aichFactory = new AichFactory();
+        Hero aich = aichFactory.createHero();
+        aich.setName("艾希");
+        aich.run();
+        aich.combat();
+        aich.upgrade();
+        aich.death();
+
+        GalenFactory galenFactory = new GalenFactory();
+        Hero galen = galenFactory.createHero();
+        galen.setName("盖伦");
+        galen.run();
+        galen.combat();
+        galen.upgrade();
+        galen.death();
+
+        VagabondageFactory vagabondageFactory = new VagabondageFactory();
+        Hero vagabondage = vagabondageFactory.createHero();
+        vagabondage.setName("盖伦");
+        vagabondage.run();
+        vagabondage.combat();
+        vagabondage.upgrade();
+        vagabondage.death();
+
+        // 使用反射的工场
+        Hero galen1 = ReflectFactory.createHero(Galen.class);
+        Hero aich1 = ReflectFactory.createHero(Aich.class);
+        Hero vagabondage1 = ReflectFactory.createHero(Vagabondage.class);
     }
 }
