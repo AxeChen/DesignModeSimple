@@ -1,11 +1,8 @@
 package com.mg.axe.designmodesimple;
 
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.example.factory.abstractFactory.ReflectFactory;
 import com.example.factory.abstractProduct.Hero;
@@ -15,7 +12,11 @@ import com.example.factory.factory.VagabondageFactory;
 import com.example.factory.product.Aich;
 import com.example.factory.product.Galen;
 import com.example.factory.product.Vagabondage;
-import com.mg.axe.builder.MyBuilder;
+import com.example.stragety.GetMoney;
+import com.example.stragety.GetMoneyCalculater;
+import com.example.stragety.KillHeroImpl;
+import com.example.stragety.KillMonsterImpl;
+import com.example.stragety.KillSoldierImpl;
 import com.mg.axe.builder.carBuilder.Car;
 import com.mg.axe.builder.carBuilder.CarBuilder;
 import com.mg.axe.builder.carBuilder.CarDirector;
@@ -25,7 +26,6 @@ import com.mg.axe.builder.imageLoaderBuilder.MyDisCache;
 import com.mg.axe.builder.imageLoaderBuilder.MyMemoryCache;
 import com.mg.axe.prototype.ArticleBean;
 import com.mg.axe.singleton.DCLSingleton;
-import com.mg.axe.singleton.EnumSingleton;
 import com.mg.axe.singleton.HungryModeSingleton;
 import com.mg.axe.singleton.LazyModeSingleton;
 import com.mg.axe.singleton.StaticInnerClassSingleton;
@@ -50,6 +50,24 @@ public class MainActivity extends AppCompatActivity {
         /**-------工厂模式-------**/
         factory();
 
+        /**-------策略模式-------**/
+        //模拟英雄联盟获取金币的方式。1、杀死10个小兵 2、杀死5个野怪 3、杀死3个英雄
+        // 没有使用策略模式
+        int sum = 0;
+        GetMoney getMoney = new GetMoney();
+        sum = getMoney.killSoldier(10) + getMoney.killMonster(5) + getMoney.killHero(3);
+        Log.i("Stragety", sum + "");
+
+        // 使用策略模式后
+        sum = 0;
+        GetMoneyCalculater calculater = new GetMoneyCalculater();
+        calculater.setGetMoneyWay(new KillSoldierImpl());
+        sum += calculater.calculaterMoney(10);
+        calculater.setGetMoneyWay(new KillMonsterImpl());
+        sum += calculater.calculaterMoney(5);
+        calculater.setGetMoneyWay(new KillHeroImpl());
+        sum += calculater.calculaterMoney(3);
+        Log.i("Stragety", sum + "");
     }
 
     private void singleton() {

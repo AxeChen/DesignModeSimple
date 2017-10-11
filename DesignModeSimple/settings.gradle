@@ -1,1 +1,1 @@
-include ':app', ':singleton', ':builder', ':prototype', ':factory'
+include ':app', ':singleton', ':builder', ':prototype', ':factory', ':stragety'
