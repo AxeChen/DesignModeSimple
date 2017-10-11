@@ -51,23 +51,7 @@ public class MainActivity extends AppCompatActivity {
         factory();
 
         /**-------策略模式-------**/
-        //模拟英雄联盟获取金币的方式。1、杀死10个小兵 2、杀死5个野怪 3、杀死3个英雄
-        // 没有使用策略模式
-        int sum = 0;
-        GetMoney getMoney = new GetMoney();
-        sum = getMoney.killSoldier(10) + getMoney.killMonster(5) + getMoney.killHero(3);
-        Log.i("Stragety", sum + "");
-
-        // 使用策略模式后
-        sum = 0;
-        GetMoneyCalculater calculater = new GetMoneyCalculater();
-        calculater.setGetMoneyWay(new KillSoldierImpl());
-        sum += calculater.calculaterMoney(10);
-        calculater.setGetMoneyWay(new KillMonsterImpl());
-        sum += calculater.calculaterMoney(5);
-        calculater.setGetMoneyWay(new KillHeroImpl());
-        sum += calculater.calculaterMoney(3);
-        Log.i("Stragety", sum + "");
+        stragety();
     }
 
     private void singleton() {
@@ -162,5 +146,25 @@ public class MainActivity extends AppCompatActivity {
         Hero galen1 = ReflectFactory.createHero(Galen.class);
         Hero aich1 = ReflectFactory.createHero(Aich.class);
         Hero vagabondage1 = ReflectFactory.createHero(Vagabondage.class);
+    }
+
+    private void stragety() {
+        //模拟英雄联盟获取金币的方式。1、杀死10个小兵 2、杀死5个野怪 3、杀死3个英雄
+        // 没有使用策略模式
+        int sum = 0;
+        GetMoney getMoney = new GetMoney();
+        sum = getMoney.killSoldier(10) + getMoney.killMonster(5) + getMoney.killHero(3);
+        Log.i("Stragety", sum + "");
+
+        // 使用策略模式后
+        sum = 0;
+        GetMoneyCalculater calculater = new GetMoneyCalculater();
+        calculater.setGetMoneyWay(new KillSoldierImpl());
+        sum += calculater.calculaterMoney(10);
+        calculater.setGetMoneyWay(new KillMonsterImpl());
+        sum += calculater.calculaterMoney(5);
+        calculater.setGetMoneyWay(new KillHeroImpl());
+        sum += calculater.calculaterMoney(3);
+        Log.i("Stragety", sum + "");
     }
 }
